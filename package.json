@@ -1,0 +1,36 @@
+{
+  "name": "reference-rsc-prototype",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "start": "node scripts/serve.mjs",
+    "generate": "npm run build && node scripts/generate.mjs",
+    "preview:static": "node scripts/serve-static.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@hono/node-server": "2.1.4",
+    "@vitejs/plugin-rsc": "0.5.36",
+    "hono": "4.13.13",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-server-dom-webpack": "19.3.0",
+    "rsc-html-stream": "0.0.8"
+  },
+  "devDependencies": {
+    "@babel/parser": "8.0.7",
+    "@playwright/test": "1.64.0",
+    "@types/node": "26.6.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@types/dom-navigation": "1.0.7",
+    "@vitejs/plugin-react": "6.1.2",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vite": "8.3.4"
+  }
+}
