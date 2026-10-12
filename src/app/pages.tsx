@@ -40,6 +40,7 @@ function Shell({ title, children }: { title: string; children: ReactNode }) {
     </html>
   );
 }
+
 export function Home() {
   return (
     <Shell title="Overview">
@@ -80,6 +81,7 @@ export function Home() {
     </Shell>
   );
 }
+
 export function About() {
   return (
     <Shell title="Design">
@@ -101,12 +103,14 @@ export function About() {
     </Shell>
   );
 }
+
 async function notes() {
   const data = await import.meta.viteRsc.loadModule<
     typeof import("../entry.ssr")
   >("ssr", "index");
   return data.readNotes();
 }
+
 export async function Notes() {
   const items = await notes();
   return (
@@ -131,6 +135,7 @@ export async function Notes() {
     </Shell>
   );
 }
+
 export async function Note({ params }: PageContext) {
   const item = (await notes()).find((note) => note.id === params.id);
   return (
@@ -143,6 +148,7 @@ export async function Note({ params }: PageContext) {
     </Shell>
   );
 }
+
 async function DeepContext() {
   await new Promise((resolve) => setTimeout(resolve, 10));
   return (
@@ -152,6 +158,7 @@ async function DeepContext() {
     </p>
   );
 }
+
 export function Missing() {
   return (
     <Shell title="Not Found">
@@ -161,6 +168,7 @@ export function Missing() {
     </Shell>
   );
 }
+
 async function Delayed() {
   await new Promise((resolve) =>
     setTimeout(
@@ -170,6 +178,7 @@ async function Delayed() {
   );
   return <DeepContext />;
 }
+
 export function Slow() {
   return (
     <Shell title="Streaming">

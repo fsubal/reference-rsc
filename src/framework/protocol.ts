@@ -1,6 +1,9 @@
 import type { ReactNode } from "react";
+
 export const FLIGHT_TYPE = "text/x-component";
+
 export type Payload = { root: ReactNode; href: string; staticPaths?: string[] };
+
 export function wantsFlight(request: Request) {
   return (
     request.headers
@@ -15,9 +18,15 @@ export function wantsFlight(request: Request) {
       }) ?? false
   );
 }
+
 export function staticFlightPath(pathname: string) {
-  return `${pathname === "/" ? "" : pathname.replace(/\/$/, "")}/index.rsc`;
+  if (pathname === "/") {
+    return "/index.rsc";
+  }
+
+  return `${pathname.replace(/\/$/, "")}/index.rsc`;
 }
+
 export function shouldIntercept(
   event: {
     canIntercept: boolean;
@@ -30,6 +39,7 @@ export function shouldIntercept(
   currentHref: string,
 ) {
   const url = new URL(event.destination.url);
+
   return (
     event.canIntercept &&
     !event.hashChange &&

@@ -7,6 +7,7 @@ function useHydrated() {
   useEffect(() => setHydrated(true), []);
   return hydrated;
 }
+
 export function Counter() {
   const hydrated = useHydrated();
   const [count, setCount] = useState(0);
@@ -16,6 +17,7 @@ export function Counter() {
     </button>
   );
 }
+
 export function Location() {
   const url = useLocation();
   return (
@@ -25,6 +27,7 @@ export function Location() {
     </code>
   );
 }
+
 export function NoteForm() {
   const hydrated = useHydrated();
   const [busy, setBusy] = useState(false);

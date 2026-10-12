@@ -1,4 +1,5 @@
 "use client";
+
 import {
   createContext,
   useContext,
@@ -7,6 +8,7 @@ import {
 } from "react";
 
 const LocationContext = createContext("http://localhost/");
+
 export function LocationProvider({
   href,
   children,
@@ -16,6 +18,7 @@ export function LocationProvider({
 }) {
   return <LocationContext value={href}>{children}</LocationContext>;
 }
+
 function subscribe(callback: () => void) {
   window.navigation?.addEventListener("currententrychange", callback);
   window.addEventListener("hashchange", callback);
@@ -24,6 +27,7 @@ function subscribe(callback: () => void) {
     window.removeEventListener("hashchange", callback);
   };
 }
+
 export function useLocation() {
   const serverHref = useContext(LocationContext);
   const href = useSyncExternalStore(
@@ -33,14 +37,20 @@ export function useLocation() {
   );
   return new URL(href);
 }
+
 let refreshHandler: (() => Promise<void>) | undefined;
 export function installRefresh(handler: () => Promise<void>) {
   refreshHandler = handler;
+
   return () => {
     refreshHandler = undefined;
   };
 }
+
 export async function refresh(): Promise<void> {
-  if (!refreshHandler) throw new Error("The RSC client has not hydrated yet.");
+  if (!refreshHandler) {
+    throw new Error("The RSC client has not hydrated yet.");
+  }
+
   await refreshHandler();
 }

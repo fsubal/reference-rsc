@@ -10,6 +10,7 @@ export { handleApi, readNotes } from "./app/api";
 
 export async function renderHTML(stream: ReadableStream<Uint8Array>) {
   const [render, hydrate] = stream.tee();
+
   let payload: Promise<Payload>;
   function Root() {
     payload ??= createFromReadableStream<Payload>(render);
@@ -20,9 +21,11 @@ export async function renderHTML(stream: ReadableStream<Uint8Array>) {
     const html = await renderToReadableStream(<Root />, {
       bootstrapScriptContent: `import(${JSON.stringify(getClientEntryUrl())})`,
     });
+
     return { stream: html.pipeThrough(injectRSCPayload(hydrate)) };
   } catch (error) {
     console.error("[SSR render]", error);
+
     void hydrate.cancel();
     return {
       status: 500,
